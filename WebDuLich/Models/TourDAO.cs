@@ -17,7 +17,8 @@ namespace WebDuLich.Models
             SqlDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
             {
-                Tour tour = new Tour {
+                Tour tour = new Tour
+                {
                     MaTour = int.Parse(rd["matour"].ToString()),
                     TenTour = rd["tentour"].ToString(),
                     ChuongTrinh = rd["chuongtrinh"].ToString(),
@@ -25,7 +26,7 @@ namespace WebDuLich.Models
                     Dongia = int.Parse(rd["dongia"].ToString()),
                     MDD = int.Parse(rd["mdd"].ToString()),
                     Hinh = rd["hinh"].ToString()
-                }; 
+                };
                 ds.Add(tour);
             }
             return ds;
@@ -87,7 +88,7 @@ namespace WebDuLich.Models
             {
                 SqlConnection conn = getConnection();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("update tour set dongia=@dongia, songay=@songay where matour=@matour", conn);               
+                SqlCommand cmd = new SqlCommand("update tour set dongia=@dongia, songay=@songay where matour=@matour", conn);
                 cmd.Parameters.AddWithValue("@matour", item.MaTour);
                 cmd.Parameters.AddWithValue("@dongia", item.Dongia);
                 cmd.Parameters.AddWithValue("@songay", item.SoNgay);
@@ -109,18 +110,26 @@ namespace WebDuLich.Models
         }
         public int Insert(Tour item)
         {
-            SqlConnection conn = getConnection();
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("insert into Tour(tentour,chuongtrinh,songay," +
-                "dongia,mdd,hinh) values(@tentour,@chuongtrinh,@songay,@dongia,@mdd,@hinh)", conn);
-            cmd.Parameters.AddWithValue("@tentour", item.TenTour);
-            cmd.Parameters.AddWithValue("@chuongtrinh", item.ChuongTrinh);
-            cmd.Parameters.AddWithValue("@songay", item.SoNgay);
-            cmd.Parameters.AddWithValue("@dongia", item.Dongia);
-            cmd.Parameters.AddWithValue("@mdd", item.MDD);
-            cmd.Parameters.AddWithValue("@hinh", item.Hinh);
-            return cmd.ExecuteNonQuery();
+            try
+            {
+                SqlConnection conn = getConnection();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("insert into Tour(tentour,chuongtrinh,songay," +
+                    "dongia,mdd,hinh) values(@tentour,@chuongtrinh,@songay,@dongia,@mdd,@hinh)", conn);
+                cmd.Parameters.AddWithValue("@tentour", item.TenTour);
+                cmd.Parameters.AddWithValue("@chuongtrinh", item.ChuongTrinh);
+                cmd.Parameters.AddWithValue("@songay", item.SoNgay);
+                cmd.Parameters.AddWithValue("@dongia", item.Dongia);
+                cmd.Parameters.AddWithValue("@mdd", item.MDD);
+                cmd.Parameters.AddWithValue("@hinh", item.Hinh);
+                return cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi thêm tour: " + ex.Message);
+                return 0;
+            }
+
         }
-       
     }
 }

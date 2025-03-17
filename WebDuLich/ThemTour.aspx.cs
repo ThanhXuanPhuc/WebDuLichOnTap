@@ -27,9 +27,9 @@ namespace WebDuLich
             int donGia = int.Parse(txtDonGia.Text);
             string hinhAnh = fuHinhDaiDien.HasFile ? fuHinhDaiDien.FileName : "Chưa chọn file";
 
-            Tour tour = new Tour
-            {
-                
+                Tour tour = new Tour
+                {
+                 
                 TenTour = tenTour,
                 ChuongTrinh = chuongTrinh,
                 SoNgay = soNgay,
@@ -38,6 +38,7 @@ namespace WebDuLich
             };
 
             int result = tourDAO.Insert(tour);
+            
             if (result > 0)
             {
                 Response.Write("<script>alert('Thêm tour thành công!'); window.location='DanhSachTour.aspx';</script>");

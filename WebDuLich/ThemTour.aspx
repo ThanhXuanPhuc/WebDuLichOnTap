@@ -7,16 +7,13 @@
 
         <div class="form-group">
             <label for="ddlDiaDiem">Địa điểm</label>
-            <asp:DropDownList ID="ddlDiaDiem" runat="server" CssClass="form-control">
-                <asp:ListItem Value="MienBac">Miền Bắc</asp:ListItem>
-                <asp:ListItem Value="MienTrung" Selected="True">Miền Trung</asp:ListItem>
-                <asp:ListItem Value="MienNam">Miền Nam</asp:ListItem>
-            </asp:DropDownList>
+            <asp:DropDownList ID="ddlDiaDiem" runat="server" CssClass="form-control"
+                DataSourceID="odsDiaDiem" DataTextField="TenDiaDiem" DataValueField="MDD"></asp:DropDownList>
         </div>
 
         <div class="form-group">
             <label for="txtTenTour">Tên tour</label>
-            <asp:TextBox ID="txtTenTour" runat="server" CssClass="form-control" required></asp:TextBox>
+            <asp:TextBox ID="txtTenTour" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
 
         <div class="form-group">
@@ -42,4 +39,8 @@
 
         <asp:Button ID="btnThem" runat="server" CssClass="btn btn-primary" Text="Thêm" OnClick="btnThem_Click" />
     </div>
+
+    <asp:ObjectDataSource ID="odsDiaDiem" runat="server" SelectMethod="getAll"  TypeName="WebDuLich.Models.DiaDiemDAO"></asp:ObjectDataSource>
+
 </asp:Content>
+
