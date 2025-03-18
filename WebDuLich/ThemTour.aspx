@@ -7,7 +7,7 @@
 
         <div class="form-group">
             <label for="ddlDiaDiem">Địa điểm</label>
-            <asp:DropDownList ID="ddlDiaDiem" runat="server" CssClass="form-control"
+            <asp:DropDownList ID="ddlDiaDiem" runat="server" CssClass="form-control" DataKeyNames="MaTour"
                 DataSourceID="odsDiaDiem" DataTextField="TenDiaDiem" DataValueField="MDD"></asp:DropDownList>
         </div>
 
@@ -40,7 +40,10 @@
         <asp:Button ID="btnThem" runat="server" CssClass="btn btn-primary" Text="Thêm" OnClick="btnThem_Click" />
     </div>
 
-    <asp:ObjectDataSource ID="odsDiaDiem" runat="server" SelectMethod="getAll"  TypeName="WebDuLich.Models.DiaDiemDAO"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="odsDiaDiem" runat="server"
+        DataObjectTypeName="WebDuLich.Models.Tour" 
+        InsertMethod="Insert"
+        SelectMethod="getAll"  TypeName="WebDuLich.Models.DiaDiemDAO" ></asp:ObjectDataSource>
 
 </asp:Content>
 
