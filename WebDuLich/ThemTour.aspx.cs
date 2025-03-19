@@ -17,41 +17,35 @@ namespace WebDuLich
            
         }
 
-        protected void btnThem_Click(object sender, EventArgs e)
+        protected void btXuLy_Click(object sender, EventArgs e)
         {
-            try { 
-            string diaDiem = ddlDiaDiem.SelectedValue;
-            string tenTour = txtTenTour.Text;
-            string chuongTrinh = txtChuongTrinh.Text;
-            int soNgay = int.Parse(txtSoNgay.Text);
-            int donGia = int.Parse(txtDonGia.Text);
-            string hinhAnh = fuHinhDaiDien.HasFile ? fuHinhDaiDien.FileName : "Chưa chọn file";
-
-                Tour tour = new Tour
-                {
-                 
-                TenTour = tenTour,
-                ChuongTrinh = chuongTrinh,
-                SoNgay = soNgay,
-                Dongia = donGia,
-                Hinh = hinhAnh
-            };
-
-            int result = tourDAO.Insert(tour);
-            
-            if (result > 0)
+            try
             {
-                Response.Write("<script>alert('Thêm tour thành công!'); window.location='DanhSachTour.aspx';</script>");
+                int mdd = int.Parse(ddlDiadiem.SelectedValue);
+                string tentour = txtTen.Text;
+                string chuongtrinh = txtChuongTrinh.Text;
+                int dongia = int.Parse(txtDongia.Text);
+                int songay = int.Parse(txtSoNgay.Text);
+
+                //xu ly upload file anh
+                string hinh = FHinh.FileName;
+                string path = Server.MapPath("~/hinh_tour") + "/" + FHinh.FileName;
+                FHinh.SaveAs(path);
+
+                //tao doi tuong can them 
+                Tour tour = new Tour { TenTour = tentour, ChuongTrinh = chuongtrinh, Dongia = dongia, SoNgay = songay, MDD = mdd, Hinh = hinh };
+                //goi phuong thuc tu lop DAO de them vao CSDL
+                tourDAO.Insert(tour);
+
+                lbThongBao.Text = "Thao tác thêm tour thành công";
+
             }
-            else
-            {
-                Response.Write("<script>alert('Thêm tour thất bại!');</script>");
-            }
-        }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('Lỗi: " + ex.Message + "');</script>");
+                lbThongBao.Text = "Thao tác thêm tour thất bại";
+
             }
-}
+
+        }
     }
 }
